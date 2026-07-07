@@ -4,7 +4,7 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Query, Req, R
 import { AppService } from './app.service';
 import type { Request, Response } from 'express';
 
-@Controller('client')
+@Controller()
 export class AppController {
 
   // @Get(':id')
@@ -49,28 +49,33 @@ export class AppController {
   //  return {msg:"access authorized",token}
   // }
 
-  @Get("route1")
-  route1(@Req() req: Request) {
-    return { message: "welcome to client route1" }
-  }
+  // @Get("route1")
+  // route1(@Req() req: Request) {
+  //   return { message: "welcome to client route1" }
+  // }
 
-  @Get("route2")
-  route2(@Req() req: Request) {
-    return { message: "welcome to client route2" }
-  }
+  // @Get("route2")
+  // route2(@Req() req: Request) {
+  //   return { message: "welcome to client route2" }
+  // }
 
-  @Get("route3")
-  route3(@Req() req: Request) {
-    return { message: "welcome to client route3 " }
-  }
+  // @Get("route3")
+  // route3(@Req() req: Request) {
+  //   return { message: "welcome to client route3 " }
+  // }
 
-  @Post("route4")
-  route4(@Req() req: Request) {
+  // @Post("route4")
+  // route4(@Req() req: Request) {
 
-    return {
-      contentType: req.headers["content-type"],
-      message: "this is route4 under /client"
-    }
-  }
+  //   return {
+  //     contentType: req.headers["content-type"],
+  //     message: "this is route4 under /client"
+  //   }
+  // }
+
+   @Post('create')
+   create(@Body() data:any){
+    return data
+   }
 
 }
