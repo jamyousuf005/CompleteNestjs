@@ -1,8 +1,10 @@
+import { UserService } from './services/user/user.service';
 import { ContentTypeMiddleware } from './auth/middleware/content-type/content-type.middleware';
 
 import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Query, Req, Res } from '@nestjs/common';
 import { AppService } from './app.service';
 import type { Request, Response } from 'express';
+import { UserDto } from './UserDto/user.dto';
 
 @Controller()
 export class AppController {
@@ -73,9 +75,26 @@ export class AppController {
   //   }
   // }
 
-   @Post('create')
-   create(@Body() data:any){
-    return data
-   }
+  //  @Post('create')
+  //  create(@Body() data:any){
+  //   return data
+  //  }
+
+
+  constructor(private readonly userService: UserService) { }
+  @Post()
+  createUser(@Body() user: UserDto) {
+    this.userService.createUser(user);
+
+    return {
+      message: "User created successfully",
+      user,
+    };
+  }
+
+  @Get()
+  getAllUsers(): UserDto[] {
+    return this.userService.getAllUsers()
+  }
 
 }
