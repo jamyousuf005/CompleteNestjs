@@ -1,5 +1,5 @@
+import { AuthGuard } from 'src/guards/auth/auth.guard';
 import { User2Service } from './services/user2/user2.service';
-import { AuthGuard } from './guards/auth/auth.guard';
 import { UserService } from './services/user/user.service';
 import { ContentTypeMiddleware } from './auth/middleware/content-type/content-type.middleware';
 
@@ -8,18 +8,32 @@ import { AppService } from './app.service';
 import type { Request, Response } from 'express';
 import { UserDto } from './UserDto/user.dto';
 
-//@Controller()
-@Controller('admin')
+@Controller()
+// @Controller('admin')
 export class AppController {
 
-  //inject userSrvice
- constructor(private readonly User2Service : User2Service){}
 
-@Get('users')
-@UseGuards(AuthGuard)       //for controller leevel use of guards apply it below the controller()
-getValue(){
- return this.User2Service.getUsers()
-}
+  @Get('user')
+  @UseGuards(AuthGuard)
+  getUser(@Req() req: any) {
+    const data = req.user
+    return `${data.name} data : ${JSON.stringify(data,null,2)}`
+  }
+
+
+
+
+
+
+  //inject userSrvice
+  // constructor(private readonly User2Service: User2Service) { }
+
+  // @Get('users')
+  // @UseGuards(AuthGuard)       //for controller leevel use of guards apply it below the controller()
+  // getValue() {
+  //   return this.User2Service.getUsers()
+  // }
+
 
 
   // @Get(':id')
@@ -111,6 +125,6 @@ getValue(){
   // }
 
 
- 
+
 
 }
