@@ -13,11 +13,15 @@ import { RequestDetailsMiddleware } from './auth/middleware/request-details/requ
 import { TimeStampMiddleware } from './auth/middleware/time-stamp/time-stamp.middleware';
 import { UserService } from './services/user/user.service';
 import { UserLoggingMiddleware } from './middleware/user-logging/user-logging.middleware';
+import { AuthGuard } from './guards/auth/auth.guard';
+import { UserController } from './user/user.controller';
+import { User2Service } from './services/user2/user2.service';
+import { UserapiService } from './services/userapi/userapi.service';
 
 @Module({
   imports: [ProductsModule, AuthModule],
-  controllers: [AppController, ProductsController],
-  providers: [AppService, ProductsService, UserService,UserLoggingMiddleware],
+  controllers: [AppController, ProductsController, UserController],
+  providers: [AppService, ProductsService, UserService,UserLoggingMiddleware,AuthGuard, User2Service, UserapiService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

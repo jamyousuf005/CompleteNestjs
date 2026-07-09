@@ -1,13 +1,26 @@
+import { User2Service } from './services/user2/user2.service';
+import { AuthGuard } from './guards/auth/auth.guard';
 import { UserService } from './services/user/user.service';
 import { ContentTypeMiddleware } from './auth/middleware/content-type/content-type.middleware';
 
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Query, Req, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Query, Req, Res, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import type { Request, Response } from 'express';
 import { UserDto } from './UserDto/user.dto';
 
-@Controller()
+//@Controller()
+@Controller('admin')
 export class AppController {
+
+  //inject userSrvice
+ constructor(private readonly User2Service : User2Service){}
+
+@Get('users')
+@UseGuards(AuthGuard)       //for controller leevel use of guards apply it below the controller()
+getValue(){
+ return this.User2Service.getUsers()
+}
+
 
   // @Get(':id')
 
@@ -81,20 +94,23 @@ export class AppController {
   //  }
 
 
-  constructor(private readonly userService: UserService) { }
-  @Post()
-  createUser(@Body() user: UserDto) {
-    this.userService.createUser(user);
+  // constructor(private readonly userService: UserService) { }
+  // @Post()
+  // createUser(@Body() user: UserDto) {
+  //   this.userService.createUser(user);
 
-    return {
-      message: "User created successfully",
-      user,
-    };
-  }
+  //   return {
+  //     message: "User created successfully",
+  //     user,
+  //   };
+  // }
 
-  @Get()
-  getAllUsers(): UserDto[] {
-    return this.userService.getAllUsers()
-  }
+  // @Get()
+  // getAllUsers(): UserDto[] {
+  //   return this.userService.getAllUsers()
+  // }
+
+
+ 
 
 }
