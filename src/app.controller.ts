@@ -7,6 +7,7 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Query, Req, R
 import { AppService } from './app.service';
 import type { Request, Response } from 'express';
 import { UserDto } from './UserDto/user.dto';
+import { RoleGuard } from './guards/role/role.guard';
 
 @Controller()
 // @Controller('admin')
@@ -14,7 +15,7 @@ export class AppController {
 
 
   @Get('user')
-  @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard,RoleGuard)
   getUser(@Req() req: any) {
     const data = req.user
     return `${data.name} data : ${JSON.stringify(data,null,2)}`
